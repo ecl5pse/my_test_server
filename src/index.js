@@ -1,9 +1,11 @@
+const db = require('./models');
 const express = require('express');
-const Sequelize = require('sequelize');
 
-const  app = express();
+const  app = express()
 
-sequelize.authenticate().then(() => {
+
+
+db.sequelize.authenticate().then(() => {
   console.log('Connection has been established successfully.');
 })
 .catch(err => {
