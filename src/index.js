@@ -1,21 +1,19 @@
 const db = require('./models');
 const express = require('express');
 
-const  app = express()
+const PORT = process.env.PORT || 5000;
 
-
+const app = express();
 
 db.sequelize.authenticate().then(() => {
   console.log('Connection has been established successfully.');
-})
-.catch(err => {
+}).catch(err => {
   console.error('Unable to connect to the database:', err);
 });
 
+app.get('/', function(req, res) {
 
-app.get('/',function(req,res){
+  res.send('Response from server.');
+});
 
-  res.send("Response from server.")
-})
-
-app.listen(3000);
+app.listen(PORT, () => console.log(`Example app listing on port ${PORT}.`));
