@@ -33,7 +33,6 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
       field:'passwordHash',
       allowNull: false,
-
       set(val) {
         this.setDataValue('password',bcrypt.hashSync(val,10));
       }

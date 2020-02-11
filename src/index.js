@@ -23,12 +23,14 @@ app.get('/', function(req, res) {
 app.post('/user', async function(req, res, next) {
 
   try {
+
     console.log(req.body);
     const newUser = await User.create(req.body);
+    return  res.status(202).send('OK');
   } catch (e) {
     console.error(e);
   }
 
 });
 
-app.listen(PORT, () => console.log(`Example app listing on port ${PORT}.`));
+app.listen(PORT, () => console.log(`Example app listing on port ${PORT} =)`));
