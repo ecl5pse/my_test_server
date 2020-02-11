@@ -1,4 +1,4 @@
-'use strict';
+  'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Users', {
@@ -9,14 +9,27 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       firstName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(64),
+        allowNull:false,
       },
       lastName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(64),
+        allowNull:false,
       },
       email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique:true,
       },
+      login:{
+        type:Sequelize.STRING(16),
+        unique:true,
+        allowNull:false,
+      },
+      passwordHash:{
+        type:Sequelize.TEXT,
+        allowNull:false
+      },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
