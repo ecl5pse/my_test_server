@@ -20,12 +20,12 @@ app.get('/', function(req, res) {
   res.send('Response from server.');
 });
 
-app.post('/user',  async function(req, res, next) {
-try{
-  console.log(req.body);
-  const newUser = await User.create(req.body);
-}
-  catch(e){
+app.post('/user', async function(req, res, next) {
+
+  try {
+    console.log(req.body);
+    const newUser = await User.create(req.body);
+  } catch (e) {
     console.error(e);
   }
 
