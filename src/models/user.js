@@ -1,5 +1,6 @@
 'use strict';
-const bcrypt = require("bcrypt");
+const { NAME_PATTERN, SALT_ROUND } = require( '../constants' );
+const bcrypt = require('bcrypt');
 
 module.exports = (sequelize, DataTypes) => {
 
@@ -8,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isAlpha: true,
+        is: NAME_PATTERN,
       },
 
     },
@@ -16,29 +17,39 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isAlpha: true,
+        is:NAME_PATTERN
       },
 
     },
     email: {
       type: DataTypes.STRING,
-      unique:true,
-    },
-    login:{
-      type:DataTypes.STRING,
-      unique:true,
-
-    },
-    password:{
-      type:DataTypes.STRING,
-      field:'passwordHash',
-      allowNull: false,
-      set(val) {
-        this.setDataValue('password',bcrypt.hashSync(val,10));
+      unique: true,
+      allowNull:false,
+      validate:{
+        isEmail:true,
       }
+    },
+    password: {
+      type: DataTypes.TEXT,
+      field: 'passwordHash',
+      allowNull: false,
+      set (val) {
+        this.setDataValue( 'password', bcrypt.hashSync( val, SALT_ROUND ) );
+      }
+    },
+    profilePicture: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: true,
     }
   }, {});
   User.associate = function(models) {
+    User.hasMany(models.Task, {
+      foreignKey: {
+        field: 'userId',
+      },
+      as:'tasks'
+    });
 
   };
   return User;

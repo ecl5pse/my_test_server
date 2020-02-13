@@ -1,36 +1,25 @@
-import cors    from 'cors';
-import express from 'express';
-import db      from './models';
-import {User}  from './models';
+const express = require('express');
+const {UserController , TaskController} = require('./controllers');
 
 const PORT = process.env.PORT || 5001;
 
 const app = express();
 
 app.use(express.json());
-/*
- db.sequelize.authenticate().then(() => {
- console.log('Connection has been established successfully.');
- }).catch(err => {
- console.error('Unable to connect to the database:', err);
- });
- */
 
 app.get('/', function(req, res) {
   res.send('Response from server.');
 });
 
-app.post('/user', async function(req, res, next) {
+app.patch('/user/:id', UserController.updateUser);
+app.post('/user', UserController.createUser);
+app.delete('/user/:id', UserController.deleteUser);
+app.get('/user/:id', UserController.getUser);
 
-  try {
+app.patch('/task/:id', TaskController.updateTask);
+app.post('/task', TaskController.createTask);
+app.delete('/task/:id', TaskController.deleteTask);
+app.get('/task/:id', TaskController.getTask);
 
-    console.log(req.body);
-    const newUser = await User.create(req.body);
-    return  res.status(202).send('OK');
-  } catch (e) {
-    console.error(e);
-  }
-
-});
 
 app.listen(PORT, () => console.log(`Example app listing on port ${PORT} =)`));

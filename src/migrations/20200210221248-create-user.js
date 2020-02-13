@@ -11,8 +11,6 @@ module.exports = {
       firstName: {
         type: Sequelize.STRING(64),
         allowNull: false,
-
-
       },
       lastName: {
         type: Sequelize.STRING(64),
@@ -22,18 +20,17 @@ module.exports = {
       email: {
         type: Sequelize.STRING,
         unique:true,
-
-      },
-      login:{
-        type:Sequelize.STRING(16),
-        unique:true,
         allowNull: false,
-
       },
       passwordHash:{
         type:Sequelize.TEXT,
         allowNull: false,
 
+      },
+      profilePicture: {
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: true,
       },
 
       createdAt: {
