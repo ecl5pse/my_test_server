@@ -1,5 +1,5 @@
 const express = require('express');
-const {UserController , TaskController} = require('./controllers');
+const {UserController, TaskController} = require('./controllers');
 
 const PORT = process.env.PORT || 5001;
 
@@ -7,17 +7,13 @@ const app = express();
 
 app.use(express.json());
 
-app.get('/', function(req, res) {
-  res.send('Response from server.');
-});
-
-app.patch('/user/:id', UserController.updateUser);
 app.post('/user', UserController.createUser);
+app.patch('/user/:id', UserController.updateUser);
 app.delete('/user/:id', UserController.deleteUser);
 app.get('/user/:id', UserController.getUser);
 
-app.patch('/task/:id', TaskController.updateTask);
 app.post('/task', TaskController.createTask);
+app.patch('/task/:id', TaskController.updateTask);
 app.delete('/task/:id', TaskController.deleteTask);
 app.get('/task/:id', TaskController.getTask);
 

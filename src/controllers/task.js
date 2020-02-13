@@ -1,34 +1,28 @@
 const {Task} = require('./../models');
+const Controller = require('./../utils/controller');
 
 class TaskController {
 
+  constructor() {
+    this._controller = new Controller(Task);
+  }
+
   createTask = async (req, res, next) => {
     try {
-      const data = {
-        ...req.body,
-        userId: req.headers.authorization,
-      };
-      const createdTask = await Task.create(data);
-      res.send(createdTask);
+      res.send(await this._controller.create(req.body));
+
     } catch (e) {
-      return res.status(400).send('Bad request');
+      next(e);
     }
   };
 
   deleteTask = async (req, res, next) => {
     try {
 
-      const deletedRowsCount = await Task.destroy({
-        where: {
-          id: req.params.id,
-        },
-      });
-
-      if (deletedRowsCount) {
-        return res.send('User has been deleted');
-      }
-
-      return res.status(404).send('Error 404 : Task not found');
+      res.send({
+                 isDeleted: (await this._controller.delete(req.params.id)) ===
+                            '1',
+               });
 
     } catch (e) {
       next(e);
@@ -39,11 +33,8 @@ class TaskController {
 
   getTask = async (req, res, next) => {
     try {
-      const user = await Task.findByPk(req.params.id);
 
-      if (user) {
-        return res.send(user);
-      }
+      res.send(await this._controller.read(req.params.id));
 
     } catch (e) {
 
@@ -54,16 +45,7 @@ class TaskController {
   updateTask = async (req, res, next) => {
     try {
 
-      const [updatedRowsCount, updatedRows] = await Task.update(req.body, {
-        where: {
-          id: req.params.id,
-        },
-        returning: true,
-      });
-      if (updatedRowsCount) {
-
-        return res.send(updatedRows[0].get());
-      }
+      res.send(await this, this._controller.update(req.params.id, req.body));
     } catch (e) {
       next(e);
     }

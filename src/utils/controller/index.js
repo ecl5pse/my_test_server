@@ -10,7 +10,6 @@ class Controller {
 
   create = async (data) => {
     const newInstance = await this.model.create(data);
-
     if (newInstance) {
       return newInstance;
     }
@@ -27,7 +26,7 @@ class Controller {
     throw  new Error();
   };
 
-  update = async (id , data) =>{
+  update = async (id, data) => {
 
     const [updatedRowsCount, updatedRows] = await this.model.update(data, {
       where: {
@@ -43,19 +42,18 @@ class Controller {
     throw  new Error();
   };
 
-  delete = async (id) =>{
-    const  deletedRowsCount = await this.model.destroy({
-      where: {
-        id,
-      }
-    });
-
-    if(deletedRowsCount){
-      return  deletedRowsCount;
+  delete = async (id) => {
+    const deletedRowsCount = await this.model.destroy({
+                                                        where: {
+                                                          id,
+                                                        },
+                                                      });
+    if (deletedRowsCount) {
+      return deletedRowsCount;
     }
     throw  new Error();
-  }
+  };
 
 }
 
-module.exports =  Controller;
+module.exports = Controller;

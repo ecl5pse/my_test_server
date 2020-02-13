@@ -1,5 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
+
   const Task = sequelize.define('Task', {
     value: {
       type: DataTypes.STRING,
@@ -27,15 +28,8 @@ module.exports = (sequelize, DataTypes) => {
   Task.associate = function(models) {
 
     Task.belongsTo(models.User, {
-      foreignKey: {
-        field: 'userId',
-      },
-      as:{
-        singular:'owner',
-        plural:'owners'
-      }
+      foreignKey: 'userId',
     });
-
   };
   return Task;
 };
