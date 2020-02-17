@@ -7,6 +7,6 @@ const passwordSchema = Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'));
 module.exports = Joi.object({
                               firstName: nameSchema.label('First name ').required(),
                               lastName: nameSchema.label('Last Name').required(),
-                              emailSchema: emailSchema.label('Email'),
+                              email: emailSchema.label('Email'),
                               password: passwordSchema.label('Password').required(),
                             }).min(1).max(4);

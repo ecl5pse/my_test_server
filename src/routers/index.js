@@ -1,8 +1,8 @@
 const express = require('express');
 const {checkAuthorization} = require('../middlewares/authorization');
 const {ApplicationError} = require('../utils/errors ');
-const {createValidation} = require('../middlewares/validation ');
-const  {userSchema} = require('../utils/validation ')
+const {createValidation} = require('../middlewares/validation');
+const  {userSchema} = require('../utils/validation');
 const {UserController, TaskController} = require('../controllers');
 const  router =  express.Router();
 
