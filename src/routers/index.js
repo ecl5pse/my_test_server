@@ -5,10 +5,18 @@ const {createValidation} = require('../middlewares/validation');
 const  {userSchema} = require('../utils/validation');
 const {UserController, TaskController} = require('../controllers');
 const  router =  express.Router();
+const adminRouter = require('./admin')
 
 router.use(checkAuthorization);
 const createUserValidation = createValidation(userSchema);
 
+
+router.use( '/admin', adminRouter );
+
+/*
+router.route( '/users' )
+       .get( UserController.getAllUsers );
+*/
 
 
 router.route('/user(/:id)?').

@@ -9,11 +9,11 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       firstName: {
-        type: Sequelize.STRING(64),
+        type: Sequelize.STRING,
         allowNull: false,
       },
       lastName: {
-        type: Sequelize.STRING(64),
+        type: Sequelize.STRING,
         allowNull: false,
 
       },
@@ -28,8 +28,7 @@ module.exports = {
 
       },
       profilePicture: {
-        type: Sequelize.STRING,
-        unique: true,
+        type: Sequelize.TEXT,
         allowNull: true,
       },
 

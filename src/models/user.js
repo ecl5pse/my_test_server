@@ -34,12 +34,11 @@ module.exports = (sequelize, DataTypes) => {
       field: 'passwordHash',
       allowNull: false,
       set (val) {
-        this.setDataValue( 'password', bcrypt.hashSync( val, SALT_ROUND ) );
+        this.setDataValue( 'password', bcrypt.hashSync( val, 10 ) );
       }
     },
     profilePicture: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: true,
     }
   }, {});
